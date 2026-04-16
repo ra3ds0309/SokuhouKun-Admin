@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>速報くんα - メイン</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="video-container"><div id="player"></div></div>
+
+    <div id="ui-overlay">
+        <div id="header-container">
+            <div id="info-box">
+                <div id="clock-display">00<span class="colon">：</span>00</div>
+                <div id="camera-location">カメラ場所</div>
+            </div>
+            <div id="ticker-container" class="hidden">
+                <div id="ticker-content">速報内容</div>
+            </div>
+        </div>
+
+        <div id="bottom-right-container">
+            <div id="tour-status">巡回: ON</div>
+            <div id="url-box"><span id="camera-url-display">URL</span></div>
+        </div>
+    </div>
+
+    <div id="error-container"></div>
+    <a href="settings.html" target="_blank" id="fixed-settings-trigger" title="別タブで設定を開く">⚙</a>
+
+    <audio id="sokuho-audio" src="assets/audio/interrupt-ad.mp3" preload="auto"></audio>
+    
+    <div id="boot-container">
+        <div id="boot-card" class="boot-hidden">
+            <div class="boot-title">LOADING COMPLETED</div>
+            <div class="boot-version">速報くんα v5.0</div>
+        </div>
+    </div>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js"></script>
+</body>
+</html>
