@@ -1,0 +1,37 @@
+{
+  "clockFont": "'New Rodin', sans-serif",
+  "tickerFont": "'New Rodin', sans-serif",
+  "tickerColor": "#ffffff",
+  "tickerStrokeColor": "#000000",
+  "tickerStrokeWidth": "13",
+  "cameras": [
+    {
+      "url": "https://www.youtube.com/embed/dfVK7ld38Ys?si=jK8HYCWNd8w2oEGr&controls=0",
+      "location": "東京都 渋谷区"
+    },
+    {
+      "url": "https://www.youtube.com/embed/bzn2QWfOLFY?si=OKi8Zw_CGw-Tonxp&controls=0",
+      "location": "大阪府 大阪市（道頓堀）"
+    },
+    {
+      "url": "https://www.youtube.com/embed/lt24XlkpcbY?si=kRRglqI9LgJAqGgr&controls=0",
+      "location": "北海道 札幌市"
+    },
+    {
+      "url": "https://www.youtube.com/embed/yETDDgrE2E4?si=2DJCuA53k7Fd6x4W&controls=0",
+      "location": "福岡県 福岡市（博多駅）"
+    },
+    {
+      "url": "https://www.youtube.com/embed/N1_qXtzWA30?si=66bxmaOWCvckc8M2&controls=0",
+      "location": "愛知県 常滑市（セントレア）"
+    },
+    {
+      "url": "https://www.youtube.com/embed/9phAqeCPdww?si=WxLhwnnczF85S6y9&controls=0",
+      "location": "宮城県 仙台市"
+    },
+    {
+      "url": "https://www.youtube.com/embed/7F8qXg_QQdQ?si=3yhl6QvC48gkbTPh&controls=0",
+      "location": "石川県 珠洲市"
+    }
+  ]
+}
