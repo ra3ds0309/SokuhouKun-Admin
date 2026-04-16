@@ -189,7 +189,7 @@ function showInfoMessage(text) {
 }
 
 function loadSettings() {
-    const saved = localStorage.getItem('sokuhoSettings');
+    const saved = localStorage.getItem('sokuhoSettings_admin');
     if (saved) settings = JSON.parse(saved);
 }
 
@@ -262,7 +262,7 @@ window.addEventListener('load', () => {
 
 // --- エクスポート機能 ---
 document.getElementById('export-settings').onclick = () => {
-    const data = localStorage.getItem('sokuhoSettings');
+    const data = localStorage.getItem('sokuhoSettings_admin');
     if (!data) {
         alert("保存された設定がありません。");
         return;
@@ -300,7 +300,7 @@ fileInput.onchange = (e) => {
             
             // データの形式が正しいか簡易チェック
             if (json.clockFont && json.cameras) {
-                localStorage.setItem('sokuhoSettings', JSON.stringify(json));
+                localStorage.setItem('sokuhoSettings_admin', JSON.stringify(json));
                 alert("インポートが完了しました。ページを再読み込みします。");
                 location.reload(); // 設定を反映させるためにリロード
             } else {
