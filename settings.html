@@ -106,7 +106,7 @@
         }
 
         function init() {
-            const saved = localStorage.getItem('sokuhoSettings');
+            const saved = localStorage.getItem('sokuhoSettings_admin');
             if (saved) settings = JSON.parse(saved);
             applyToUI(settings);
         }
@@ -119,7 +119,7 @@
         // 保存処理
         document.getElementById('save-settings').onclick = () => {
             const data = collectCurrentSettings();
-            localStorage.setItem('sokuhoSettings', JSON.stringify(data));
+            localStorage.setItem('sokuhoSettings_admin', JSON.stringify(data));
             document.getElementById('save-status').innerText = "保存完了！";
             setTimeout(() => document.getElementById('save-status').innerText = "", 2000);
         };
