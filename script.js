@@ -10,7 +10,7 @@ let settings = {
     cameras: [{ url: "https://www.youtube.com/embed/dfVK7ld38Ys", location: "サンプル映像" }]
 };
 
-const bc = new BroadcastChannel('sokuho_channel');
+const bc = new BroadcastChannel('sokuho_channel_admin');
 let currentPlayer;
 let currentCameraIndex = 0;
 let isTourActive = true; 
