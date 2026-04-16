@@ -1,0 +1,239 @@
+/* =========================================
+   フォント定義
+   ========================================= */
+@font-face {
+    font-family: 'UD Shin Go';
+    src: url('assets/fonts/A-OTF-UDShinGoPr6-Medium.otf');
+}
+@font-face {
+    font-family: 'New Rodin';
+    src: url('assets/fonts/FOT-NewRodinPro-DB.otf');
+}
+@font-face {
+    font-family: 'Rodin NTLG';
+    src: url('assets/fonts/FOT-RodinNTLGPro-DB.otf');
+}
+@font-face {
+    font-family: 'UD Kakugo';
+    src: url('assets/fonts/FOT-UDKakugo_LargePr6-DB.otf');
+}
+
+/* =========================================
+   基本レイアウト
+   ========================================= */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    color: white;
+}
+
+#video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+#player {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.1);
+}
+
+#ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* =========================================
+   ヘッダー（時計・地名）
+   ========================================= */
+#header-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 30px;
+}
+
+#info-box {
+    background: #262626;
+    padding: 20px 25px 15px 25px;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-right: 60px;
+}
+
+#clock-display {
+    font-size: 64px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-feature-settings: "palt";
+}
+
+.colon {
+    transform: translateY(-2px);
+    margin: 0 -4px;
+}
+
+#camera-location {
+    font-size: 18px;
+    color: #aaa;
+    font-feature-settings: "palt";
+}
+
+/* =========================================
+   右下情報エリア（巡回状態・URL）
+   ========================================= */
+#bottom-right-container {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+#tour-status {
+    font-size: 14px;
+    padding: 3px 10px;
+    background: #d32f2f;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: background 0.3s;
+}
+.tour-off {
+    background: rgba(85, 85, 85, 0.8) !important;
+    color: #ccc;
+}
+
+#url-box {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.4);
+    text-shadow: 1px 1px 2px black;
+}
+
+/* =========================================
+   速報テロップ
+   ========================================= */
+#ticker-container {
+    margin-top: 35px;
+    flex-grow: 1;
+    transition: opacity 0.5s;
+}
+
+#ticker-content {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1.4;
+    font-feature-settings: "palt";
+    paint-order: stroke fill;
+    -webkit-text-stroke-linecap: round;
+    -webkit-text-stroke-linejoin: round;
+}
+
+/* =========================================
+   起動カード
+   ========================================= */
+#boot-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30000;
+    pointer-events: none;
+}
+
+#boot-card {
+    background: rgba(0, 32, 96, 0.9);
+    color: white;
+    padding: 25px 50px;
+    border-left: 10px solid #fbc02d;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    font-family: 'Rodin NTLG', sans-serif;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.boot-title {
+    font-size: 16px;
+    letter-spacing: 0.25em;
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+.boot-version {
+    font-size: 32px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.boot-hidden {
+    opacity: 0;
+    transform: translate(-50%, -30%) scale(0.95);
+}
+
+.boot-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* =========================================
+   その他（設定・エラー）
+   ========================================= */
+#fixed-settings-trigger {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24px;
+    pointer-events: auto;
+    transition: 0.3s;
+}
+
+#error-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20000;
+    width: 80%;
+    max-width: 600px;
+    pointer-events: none;
+}
+
+.info-msg {
+    background: rgba(34, 34, 34, 0.9);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 5px solid #ffc107;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    font-weight: bold;
+}
+
+.hidden { opacity: 0; }
