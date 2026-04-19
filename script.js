@@ -313,3 +313,100 @@ fileInput.onchange = (e) => {
     };
     reader.readAsText(file);
 };
+
+/* =========================================
+   緊急地震速報 (EEW) 取得・整形ロジック
+   ========================================= */
+let lastEEWEventID = ""; 
+
+async function fetchEEW() {
+    const url = 'https://api.wolfx.jp/jma_eew.json';
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return;
+        const data = await response.json();
+
+        if (data.isCancel) {
+            if (lastEEWEventID === data.EventID) {
+                showNews('<span style="color: #ffffff;">先ほどの緊急地震速報は取り消されました</span>');
+                lastEEWEventID = ""; 
+            }
+            return;
+        }
+
+        if (data.isWarn && data.EventID !== lastEEWEventID) {
+            lastEEWEventID = data.EventID;
+            
+            // 地域名の整形（指定の定義に基づく）
+            const areaText = formatEEWAreas(data.WarnArea ? data.WarnArea.Chiiki : "");
+            
+            const eewContent = `
+                <span style="color: #ffff00;">緊急地震速報 強い揺れに警戒</span><br>
+                <span style="color: #ffffff;">${areaText}</span>
+            `;
+
+            playSokuhoSound();
+            showNews(eewContent);
+        }
+    } catch (error) {
+        console.error("EEW取得エラー:", error);
+    }
+}
+
+// 地域名を整形・判定するメイン関数
+function formatEEWAreas(chiikiString) {
+    if (!chiikiString) return "各地";
+
+    // 1. APIの地域名から「県」「府」「都」「地方」などを除いて純粋な地名にする
+    const rawAreas = chiikiString.split(' ');
+    let cleanAreas = [...new Set(rawAreas.map(a => {
+        if (a.includes("道東")) return "北海道道東";
+        if (a.includes("道北")) return "北海道道北";
+        if (a.includes("道央")) return "北海道道央";
+        if (a.includes("道南")) return "北海道道南";
+        if (a.includes("伊豆諸島")) return "伊豆諸島";
+        if (a.includes("小笠原")) return "小笠原";
+        if (a.includes("奄美")) return "奄美";
+        return a.replace(/[県府都]$|地方$|南部$|北部$|東部$|西部$|中越$|下越$|上越$|佐渡$|三八上北$|津軽$|下北$|二本松$|通り$|など/g, "");
+    }))];
+
+    // 2. 文字数チェック（21文字を超える場合は地方名に集約）
+    const combinedText = cleanAreas.join(' ');
+    if (combinedText.length > 21) {
+        return summarizeToRegions(cleanAreas);
+    }
+
+    return combinedText;
+}
+
+// 地方名への集約ロジック（指定された定義）
+function summarizeToRegions(prefectures) {
+    const regionDef = {
+        "北海道": ["北海道道東", "北海道道北", "北海道道央", "北海道道南"],
+        "東北": ["青森", "岩手", "山形", "秋田", "宮城", "福島"],
+        "関東": ["茨城", "栃木", "群馬", "埼玉", "東京", "千葉", "神奈川"],
+        "伊豆諸島": ["伊豆諸島"],
+        "小笠原": ["小笠原"],
+        "甲信": ["長野", "山梨"],
+        "東海": ["愛知", "静岡", "三重", "岐阜"],
+        "北陸": ["石川", "富山", "福井"],
+        "新潟": ["新潟"],
+        "近畿": ["滋賀", "奈良", "和歌山", "京都", "大阪", "兵庫"],
+        "四国": ["愛媛", "高知", "香川", "徳島"],
+        "中国": ["岡山", "広島", "鳥取", "島根", "山口"],
+        "九州": ["福岡", "長崎", "佐賀", "大分", "熊本", "鹿児島", "宮崎"], // 福岡県を福岡に統一
+        "奄美": ["奄美"],
+        "沖縄": ["沖縄"]
+    };
+
+    let resultRegions = [];
+    for (const [regionName, memberList] of Object.entries(regionDef)) {
+        // その地方に含まれる県名が一つでもあれば、その地方名を追加
+        if (memberList.some(m => prefectures.includes(m))) {
+            resultRegions.push(regionName);
+        }
+    }
+
+    // 重複を除去して結合
+    return [...new Set(resultRegions)].join(' ');
+}
