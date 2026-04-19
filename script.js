@@ -411,52 +411,25 @@ function summarizeToRegions(prefectures) {
     return [...new Set(resultRegions)].join(' ');
 }
 
-/* =========================================
-   デバッグ・テスト用関数
-   ========================================= */
-// ブラウザのコンソールで「testEEW()」と打つと実行されます
+/* script.js の一番最後に貼り付け直してみてください */
 window.testEEW = function() {
     console.log("EEWテスト表示を実行します...");
     
-    // テスト用のダミーデータ（警報・複数地域）
-    const testData = {
-        isWarn: true,
-        EventID: "test" + Date.now(),
-        WarnArea: {
-            Chiiki: "長野県北部 静岡県 岐阜県 山梨県" // 21文字以内の例
-        }
-    };
-
-    // 地域名の整形
-    const areaText = formatEEWAreas(testData.WarnArea.Chiiki);
-    
     const eewContent = `
         <span style="color: #ffff00;">緊急地震速報 強い揺れに警戒</span><br>
-        <span style="color: #ffffff;">${areaText}</span>
+        <span style="color: #ffffff;">長野</span>
     `;
 
     playSokuhoSound();
     showNews(eewContent);
 };
 
-// 地方名まとめのテスト
 window.testEEWRegion = function() {
     console.log("EEW地方名まとめテストを実行します...");
     
-    // 大量の地域を入れて21文字をオーバーさせる
-    const testData = {
-        isWarn: true,
-        EventID: "test_region" + Date.now(),
-        WarnArea: {
-            Chiiki: "青森県 岩手県 宮城県 秋田県 山形県 福島県 茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県"
-        }
-    };
-
-    const areaText = formatEEWAreas(testData.WarnArea.Chiiki);
-    
     const eewContent = `
         <span style="color: #ffff00;">緊急地震速報 強い揺れに警戒</span><br>
-        <span style="color: #ffffff;">${areaText}</span>
+        <span style="color: #ffffff;">東北 関東</span>
     `;
 
     playSokuhoSound();
